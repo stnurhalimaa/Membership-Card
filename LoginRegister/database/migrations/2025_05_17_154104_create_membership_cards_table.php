@@ -4,23 +4,32 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateMembershipCardsTable extends Migration
 {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+        Schema::create('membership_cards', function (Blueprint $table) {
+            $table->id();  // ID sebagai primary key
+            $table->string('name');  // Nama anggota gym
+            $table->date('joining_date');  // Tanggal mulai keanggotaan
+            $table->date('expiry_date')->nullable();  // Tanggal kadaluarsa keanggotaan, boleh kosong
+            $table->string('membership_number')->unique();  // Nomor keanggotaan yang unik
+            $table->timestamps();  // Timestamps untuk created_at dan updated_at
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('membership_cards');
     }
 }
